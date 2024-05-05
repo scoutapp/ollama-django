@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Django Chat App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#chat-form").submit(function (event) {
+          event.preventDefault();
+          var userInput = $("#user-input").val();
+          $("#user-input").val("");
+          $("#chat-history").append(
+            "<p><strong>User:</strong></p><p>" + userInput + "</p>"
+          );
+          var aiResponseElement = $("<p>");
+          $("#chat-history").append($("<strong>").text("AI:"));
+          $("#chat-history").append(aiResponseElement);
+          $.ajax({
+            type: "POST",
+            url: "/chat/",
+            data: { user_input: userInput },
+            xhrFields: {
+              onprogress: function (xhr) {
+                var response = xhr.target.responseText;
+                console.log(xhr);
+                console.log(response);
+                aiResponseElement.html(function (i, oldHtml) {
+                  return response;
+                });
+              },
+            },
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div id="chat-history"></div>
+    <form id="chat-form">
+      <input type="text" id="user-input" name="user_input" required />
+      <button type="submit">Send</button>
+    </form>
+  </body>
+</html>
