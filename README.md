@@ -2,6 +2,8 @@
 
 This Django project showcases the power of building local AI-powered chat applications using the Ollama library and Meta's Llama 3 model 
 
+[Accompanying post with additional info here](https://scoutapm.com/blog/building-ai-with-ollama-and-django)
+
 **Key Features**
 
 * **Local AI :**  Leverages Ollama to run the Llama 3 model locally
